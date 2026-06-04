@@ -1,0 +1,20 @@
+# Ignorar arquivos de backup e temporários
+remed.zip
+
+# Ignorar arquivos de configuração de IDEs
+.vscode/
+.idea/
+
+# Ignorar arquivos de dependências (se houver)
+node_modules/
+
+# Ignorar arquivos de build (se houver)
+dist/
+build/
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de sistema
+.DS_Store
+thumbs.db
