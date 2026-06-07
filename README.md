@@ -129,7 +129,7 @@ Distribuído sob a licença [MIT](LICENSE).
 
 <div align="center">
 
-Desenvolvido com 💊 por [**Saulomgg**](https://github.com/saulomgg)
+Desenvolvido por [**Saulomgg**](https://github.com/saulomgg)
 
 ⭐ Se o projeto te ajudou, deixe uma estrela no repositório!
 
