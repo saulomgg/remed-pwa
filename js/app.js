@@ -59,6 +59,7 @@ function renderMeds() {
         <div class="med-icon ${iconClass}">💊</div>
         <div class="med-info">
           <div class="med-name">${escHtml(med.nome)}${med.mg ? ' ' + escHtml(med.mg) : ''}</div>
+          <div class="med-hint" style="font-size:0.68rem;color:var(--accent-light);margin-top:2px;opacity:0.7;">▼ toque para ver detalhes</div>
           <div class="med-meta">
             <span>${med.horario || '–'}</span>
             <span>·</span>
@@ -110,6 +111,8 @@ function toggleMedCard(id) {
   const card = document.getElementById(`medCard_${id}`);
   if (!card) return;
   card.classList.toggle('expanded');
+  const hint = card.querySelector('.med-hint');
+  if (hint) hint.style.display = card.classList.contains('expanded') ? 'none' : '';
 }
 
 function updateHeroStats() {
@@ -373,32 +376,38 @@ function selecionarFarmacia(id) {
 }
 
 function renderPedidoPreview() {
-  const c = document.getElementById('pedidoPreview');
   const txt = document.getElementById('pedidoMsgEdit');
-  if (!_pedidoSelecionados.size) {
-    if (c) c.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">Nenhum medicamento selecionado.</p>';
-    if (txt) txt.value = '';
-    return;
-  }
-  const meds   = storage.meds().filter(m => _pedidoSelecionados.has(m.id));
-  const user   = storage.user();
-  const nome   = user ? user.nome : 'Paciente';
-  const linhas = meds.map(m => {
-    let s = `• ${m.nome}`;
-    if (m.mg) s += ` ${m.mg}`;
-    if (m.fabricante) s += ` (${m.fabricante})`;
-    return s;
-  }).join('\n');
+  const perfil = storage.perfil();
+  const nome   = perfil.nome || '';
   const data   = new Date().toLocaleDateString('pt-BR');
-  const msg = `Olá! 👋 Preciso fazer um pedido de medicamentos.\n\n*Nome:* ${nome}\n*Data:* ${data}\n\n*Medicamentos:*\n${linhas}\n\nPor favor, verificar disponibilidade e preço. Obrigado!`;
-  
+
+  let linhasMeds = '';
+  if (_pedidoSelecionados.size) {
+    const meds = storage.meds().filter(m => _pedidoSelecionados.has(m.id));
+    linhasMeds = meds.map(m => {
+      let s = `• ${m.nome}`;
+      if (m.mg) s += ` ${m.mg}`;
+      if (m.fabricante) s += ` (${m.fabricante})`;
+      return s;
+    }).join('\n');
+  }
+
+  let msg = `Olá! 👋`;
+  if (nome) msg += ` Meu nome é *${nome}*.`;
+  msg += `\n\nGostaria de solicitar um orçamento dos seguintes medicamentos:`;
+  if (linhasMeds) {
+    msg += `\n\n${linhasMeds}`;
+  } else {
+    msg += `\n\n_(adicione os medicamentos desejados aqui)_`;
+  }
+  msg += `\n\n*Data:* ${data}`;
+  msg += `\n\nAguardo retorno. Obrigado! 🙏`;
+
   if (txt) txt.value = msg;
-  if (c) c.dataset.msg = msg;
 }
 
 function pedidoProx() {
-  if (_pedidoStep === 1 && !_pedidoSelecionados.size) { toast('Selecione ao menos um medicamento.', 'warn'); return; }
-  if (_pedidoStep === 2 && !_pedidoFarmaciaId) { toast('Selecione uma farmácia.', 'warn'); return; }
+  if (_pedidoStep === 2 && !_pedidoFarmaciaId) { toast('Selecione uma farmácia para enviar o pedido.', 'warn'); return; }
   if (_pedidoStep < 3) { _pedidoStep++; renderPedidoStep(); const b=document.getElementById("btnPedidoProx"); if(b) b.textContent = _pedidoStep===3 ? "📲 Enviar via WhatsApp" : "Próximo →"; }
 }
 function pedidoAntes() {
@@ -465,7 +474,7 @@ function renderAvisos() {
 
 function exportarDados() {
   const bkp = {
-    user:      storage.user(),
+    perfil:    storage.perfil(),
     meds:      storage.meds(),
     farmacias: storage.farmacias(),
     history:   storage.history(),
@@ -487,11 +496,11 @@ function importarDados(e) {
   r.onload = ev => {
     try {
       const d = JSON.parse(ev.target.result);
-      if (d.user)      { storage.set(KEY_USER, d.user); localStorage.setItem(KEY_REG, '1'); }
-      if (d.meds)      storage.set(KEY_MEDS,      d.meds);
-      if (d.farmacias) storage.set(KEY_FARMACIAS,  d.farmacias);
-      if (d.history)   storage.set(KEY_HISTORY,    d.history);
-      if (d.settings)  storage.set(KEY_SETTINGS,   d.settings);
+      if (d.perfil)    storage.set(KEY_PERFIL,     d.perfil);
+      if (d.meds)      storage.set(KEY_MEDS,        d.meds);
+      if (d.farmacias) storage.set(KEY_FARMACIAS,   d.farmacias);
+      if (d.history)   storage.set(KEY_HISTORY,     d.history);
+      if (d.settings)  storage.set(KEY_SETTINGS,    d.settings);
       toast('📥 Dados restaurados! Conta recuperada.', 'ok', 5000);
       setTimeout(() => location.reload(), 1500);
     } catch {
@@ -517,7 +526,8 @@ document.addEventListener('DOMContentLoaded', () => {
   updateDate();
   applyTheme();
   setupPWA();
-  checkOnboarding();
+  _atualizarHeaderNome();
+  initNotificacoes();
   setupFormMed();
   setupFormFarmacia();
   renderMeds();

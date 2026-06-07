@@ -14,7 +14,7 @@ function closeModal(id) {
   const m = document.getElementById(id);
   if (!m) return;
   m.classList.remove('open');
-  if (!document.querySelector('.modal-overlay.open, #modalOnboarding.open')) {
+  if (!document.querySelector('.modal-overlay.open')) {
     document.body.style.overflow = '';
   }
 }
@@ -172,3 +172,102 @@ function updateDate() {
 // ─── UTILS ───
 function escHtml(s='') { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 function formatDate(s) { return s ? new Date(s+'T12:00:00').toLocaleDateString('pt-BR') : '—'; }
+
+// ─── NOTIFICAÇÕES ───
+async function pedirPermissaoNotificacao() {
+  if (!('Notification' in window)) {
+    toast('Seu navegador não suporta notificações.', 'warn'); return;
+  }
+  if (Notification.permission === 'granted') {
+    ativarNotificacoes(); return;
+  }
+  const perm = await Notification.requestPermission();
+  if (perm === 'granted') {
+    ativarNotificacoes();
+  } else {
+    toast('Permissão negada. Ative nas configurações do navegador.', 'warn');
+    _syncNotifUI(false);
+  }
+}
+
+function ativarNotificacoes() {
+  const s = storage.settings();
+  s.notif = true;
+  storage.set(KEY_SETTINGS, s);
+  _syncNotifUI(true);
+  agendarNotificacoes();
+  toast('🔔 Notificações ativadas!', 'ok');
+}
+
+function desativarNotificacoes() {
+  const s = storage.settings();
+  s.notif = false;
+  storage.set(KEY_SETTINGS, s);
+  _syncNotifUI(false);
+  toast('🔕 Notificações desativadas.', 'info');
+}
+
+function toggleNotificacoes() {
+  const s = storage.settings();
+  if (s.notif) { desativarNotificacoes(); }
+  else { pedirPermissaoNotificacao(); }
+}
+
+function _syncNotifUI(ativo) {
+  const icon  = document.getElementById('notifIcon');
+  const label = document.getElementById('notifLabel');
+  const sub   = document.getElementById('notifSub');
+  if (icon)  icon.textContent  = ativo ? '🔔' : '🔕';
+  if (label) label.textContent = ativo ? 'Notificações Ativas' : 'Notificações Desativadas';
+  if (sub)   sub.textContent   = ativo ? 'Toque para desativar' : 'Toque para ativar alertas de estoque';
+}
+
+function agendarNotificacoes() {
+  if (Notification.permission !== 'granted') return;
+  const meds = storage.meds();
+  meds.forEach(m => {
+    const { pct } = calcStock ? calcStock(m) : { pct: 100 };
+    if (pct <= 15) {
+      new Notification('🔴 Estoque Crítico — ReMed', {
+        body: `${m.nome} está quase acabando! Apenas ${Math.round(pct)}% restante.`,
+        icon: './assets/icon-192.png',
+        badge: './assets/icon-192.png',
+        tag: `crit_${m.id}`,
+      });
+    } else if (pct <= 30) {
+      new Notification('🟡 Estoque Baixo — ReMed', {
+        body: `${m.nome} está acabando. Considere repor em breve.`,
+        icon: './assets/icon-192.png',
+        badge: './assets/icon-192.png',
+        tag: `warn_${m.id}`,
+      });
+    }
+  });
+
+  // Agendar lembretes de horário
+  meds.filter(m => m.horario).forEach(m => {
+    const [h, min] = m.horario.split(':').map(Number);
+    const agora = new Date();
+    const alvo  = new Date();
+    alvo.setHours(h, min, 0, 0);
+    if (alvo <= agora) alvo.setDate(alvo.getDate() + 1);
+    const delay = alvo - agora;
+    setTimeout(() => {
+      if (Notification.permission === 'granted' && storage.settings().notif) {
+        new Notification(`⏰ Hora do remédio — ReMed`, {
+          body: `Está na hora de tomar ${m.nome}${m.mg ? ' ' + m.mg : ''}.`,
+          icon: './assets/icon-192.png',
+          tag: `hora_${m.id}`,
+        });
+      }
+    }, delay);
+  });
+}
+
+function initNotificacoes() {
+  const s = storage.settings();
+  _syncNotifUI(!!(s.notif && Notification.permission === 'granted'));
+  if (s.notif && Notification.permission === 'granted') {
+    agendarNotificacoes();
+  }
+}

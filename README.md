@@ -1,82 +1,136 @@
-# 💊 ReMed - Web App Progressivo (PWA)
+<div align="center">
 
-## Visão Geral
+# 💊 ReMed PWA
 
-O ReMed é um **aplicativo web progressivo (PWA) offline-first** projetado para ajudar usuários a gerenciar seus medicamentos de forma inteligente, privada e gratuita. Ele permite cadastrar medicamentos, acompanhar o estoque, configurar lembretes de dosagem, gerenciar farmácias e criar pedidos de reposição via WhatsApp.
+**Gestão inteligente de medicamentos, estoque e pedidos via WhatsApp. PWA Offline-First focado em privacidade.**
 
-**Principais Características:**
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![PWA](https://img.shields.io/badge/PWA-Offline--First-purple?logo=googlechrome)](https://saulomgg.github.io/remed-pwa)
+[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-blue?logo=github)](https://saulomgg.github.io/remed-pwa)
+[![WhatsApp](https://img.shields.io/badge/Pedidos-WhatsApp-25D366?logo=whatsapp&logoColor=white)]()
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen)]()
 
-*   **Offline-First:** Funciona perfeitamente mesmo sem conexão com a internet, garantindo acesso contínuo aos dados dos seus medicamentos.
-*   **Privacidade Total:** Todos os dados dos seus medicamentos e farmácias são armazenados **exclusivamente no seu dispositivo** (via `localStorage`). Nenhuma informação sensível é enviada a servidores externos.
-*   **Controle de Medicamentos:** Cadastre medicamentos com detalhes, acompanhe o estoque restante e receba alertas de status (crítico, atenção, ok).
-*   **Lembretes de Dosagem:** Configure horários para tomar seus medicamentos e receba lembretes diários.
-*   **Gerenciamento de Farmácias:** Mantenha uma lista de farmácias com contatos e endereços para facilitar pedidos.
-*   **Pedidos via WhatsApp:** Gere listas de medicamentos para reposição e envie-as diretamente para farmácias cadastradas.
-*   **Backup e Restauração:** Exporte e importe seus dados em formato JSON para segurança e portabilidade.
-*   **Personalização:** Escolha temas de cores e alterne entre modos claro/escuro para uma experiência visual agradável.
-*   **PWA Instalável:** Pode ser instalado na tela inicial do seu smartphone ou desktop, comportando-se como um aplicativo nativo.
+<br/>
 
-## Arquitetura Frontend
+### 🌐 **[▶ Acesse o App Agora](https://saulomgg.github.io/remed-pwa)**
 
-O ReMed é construído com tecnologias web padrão, focando em performance e usabilidade:
+<br/>
 
-*   **HTML5:** Estrutura semântica da aplicação.
-*   **CSS3:** Estilização modular com `tokens.css` (variáveis globais) e `components.css` (estilos de componentes).
-*   **JavaScript:** Lógica de negócio e interatividade, organizada em módulos:
-    *   `storage.js`: Gerenciamento de dados no `localStorage`.
-    *   `ui.js`: Funções de interface do usuário (modais, toasts, tema, PWA).
-    *   `app.js`: Lógica principal de gestão de medicamentos, farmácias, lembretes e pedidos.
-    *   `auth.js`: Gerenciamento do cadastro do usuário (opcional).
+> Seus medicamentos organizados, seu estoque sob controle, seus pedidos no WhatsApp — tudo **100% privado e offline**.
 
-## Funcionalidades Offline
+</div>
 
-Graças ao **Service Worker (`sw.js`)** e ao armazenamento local, as seguintes funcionalidades estão disponíveis offline:
+---
 
-*   Navegação completa pela interface do aplicativo.
-*   Cadastro e edição de medicamentos.
-*   Acompanhamento de estoque e status dos medicamentos.
-*   Configuração e visualização de lembretes de dosagem.
-*   Cadastro e gerenciamento de farmácias.
-*   Geração de pedidos via WhatsApp (a ação de envio requer conexão).
-*   Personalização de tema e cores.
-*   Backup e restauração de dados (exportação/importação de JSON).
+## 📸 Preview
 
-## Backend Opcional (Cadastro de Usuário)
+<div align="center">
+  <!-- Adicione aqui um screenshot do app -->
+</div>
 
-Embora a gestão de medicamentos seja totalmente offline, o ReMed oferece um **backend opcional** para o cadastro do usuário. Este cadastro é usado para:
+---
 
-*   Registrar nome, e-mail e telefone do usuário.
-*   Gerar uma chave única para identificação futura.
+## ✨ Funcionalidades
 
-**Importante:** Este backend **não armazena dados dos seus medicamentos ou farmácias**. Ele serve apenas para o registro básico do usuário. A comunicação com o backend é feita através de um **Cloudflare Worker** que, por sua vez, interage com um **Google Apps Script** para salvar os dados em uma planilha Google Sheets.
+| Funcionalidade | Descrição |
+|---|---|
+| 💊 **Controle de Medicamentos** | Cadastre remédios com nome, dosagem, fabricante e horário |
+| 📦 **Acompanhamento de Estoque** | Alertas automáticos: crítico 🔴, atenção 🟡, ok 🟢 |
+| ⏰ **Lembretes de Dosagem** | Veja os horários do dia e receba notificações |
+| 🔔 **Notificações** | Alertas de estoque baixo e hora do remédio no celular |
+| 🏪 **Gerenciamento de Farmácias** | Lista de farmácias com contato via WhatsApp |
+| 📲 **Pedidos via WhatsApp** | Mensagem pré-formatada com seus remédios, editável antes de enviar |
+| 👤 **Perfil do Usuário** | Salve seu nome, endereço e telefone — aparece na mensagem do pedido |
+| 🔒 **Privacidade Total** | Dados armazenados apenas no seu dispositivo (LocalStorage) |
+| 💾 **Backup e Restauração** | Exporte e importe tudo via arquivo JSON |
+| 🌙 **Tema Claro/Escuro** | Personalização de cores e aparência |
+| ✈️ **Offline First** | Funciona completamente sem internet |
+| 📲 **Instalável** | Comporta-se como app nativo no Android e iOS |
 
-**O código do backend (`worker.js` e `appscript.js`) está em um repositório separado** para manter a clareza da arquitetura e a independência do frontend. Consulte o repositório `remed-backend` para detalhes sobre sua implementação e deploy.
+---
 
-## Instalação (PWA)
+## 🛠️ Tecnologias
 
-Para instalar o ReMed como um aplicativo em seu dispositivo:
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![PWA](https://img.shields.io/badge/PWA-Service%20Workers-5A0FC8?style=flat&logo=googlechrome&logoColor=white)
 
-1.  Acesse a URL do aplicativo em seu navegador (ex: `remed.pages.dev`).
-2.  Clique no botão de instalação (geralmente um ícone de "+" ou "Instalar" na barra de endereço ou menu do navegador).
-3.  Confirme a instalação quando solicitado.
+- **HTML5 & CSS3** — Estrutura semântica com Design Tokens e componentes modulares
+- **JavaScript ES6+** — Módulos independentes: `storage.js`, `ui.js`, `auth.js`, `app.js`
+- **Service Workers** — Cache completo para funcionamento offline
+- **Web App Manifest** — Instalação como app nativo
+- **LocalStorage API** — Persistência 100% local e privada
+- **Notifications API** — Alertas nativos de estoque e horário de remédios
 
-## Deploy do Frontend
+---
 
-O frontend do ReMed pode ser facilmente implantado em serviços de hospedagem estática como **Cloudflare Pages** ou **GitHub Pages**.
+## 📁 Estrutura do Projeto
 
-**Passos:**
+```
+remed-pwa/
+├── assets/
+│   ├── remed-logo.png   # Logo 1024×1024
+│   ├── icon-192.png     # Ícone PWA pequeno
+│   └── icon-512.png     # Ícone PWA grande
+├── css/
+│   ├── tokens.css       # Variáveis globais (cores, espaçamentos)
+│   └── components.css   # Estilos dos componentes
+├── js/
+│   ├── storage.js       # Gerenciamento de dados no LocalStorage
+│   ├── ui.js            # Interface: modais, tema, PWA, notificações
+│   ├── auth.js          # Perfil do usuário
+│   └── app.js           # Lógica principal: medicamentos, farmácias, pedidos
+├── index.html           # Entrada principal
+├── manifest.json        # Configuração PWA
+└── sw.js                # Service Worker (cache offline)
+```
 
-1.  Faça o upload de todos os arquivos e pastas **exceto** a pasta `backend/` para o seu serviço de hospedagem.
-2.  Certifique-se de que o `manifest.json` e o `sw.js` estejam na raiz do projeto para que o PWA funcione corretamente.
+---
 
-## Contribuição
+## 🔒 Privacidade
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues, sugerir melhorias ou enviar pull requests. Por favor, siga o [Código de Conduta](CODE_OF_CONDUCT.md) e as [Diretrizes de Contribuição](CONTRIBUTING.md).
+- ✅ Todos os dados ficam **exclusivamente no seu dispositivo**
+- ✅ Sem servidores, sem cadastro obrigatório, sem rastreamento
+- ✅ Funciona 100% offline após o primeiro acesso
+- ✅ Backup exportável a qualquer momento em formato JSON
 
-## Licença
+---
 
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+## 🚀 Como Usar
 
-## Contato
+### Opção 1 — Acesso direto (recomendado)
 
-Desenvolvido por [Saulomgg](https://github.com/saulomgg)
+Acesse **[saulomgg.github.io/remed-pwa](https://saulomgg.github.io/remed-pwa)** e instale como app clicando em "Adicionar à tela inicial".
+
+### Opção 2 — Rodar localmente
+
+```bash
+git clone https://github.com/saulomgg/remed-pwa.git
+cd remed-pwa
+npx serve .
+```
+
+> ⚠️ Para PWA funcionar (instalação + notificações), o projeto precisa ser servido via **HTTPS**.
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Abra uma [issue](https://github.com/saulomgg/remed-pwa/issues) ou envie um pull request.
+
+---
+
+## 📄 Licença
+
+Distribuído sob a licença [MIT](LICENSE).
+
+---
+
+<div align="center">
+
+Desenvolvido com 💊 por [**Saulomgg**](https://github.com/saulomgg)
+
+⭐ Se o projeto te ajudou, deixe uma estrela no repositório!
+
+</div>

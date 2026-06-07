@@ -42,7 +42,7 @@
   </div>
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:10px 14px;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.18);border-radius:14px">
     <span style="font-size:1rem;flex-shrink:0">🌐</span>
-    <div style="font-size:0.78rem;color:var(--accent-light);line-height:1.5">Apoie e acompanhe mais projetos em <a href="https://saulomgg.pages.dev" target="_blank" style="color:var(--accent-light);font-weight:700;text-decoration:underline">saulomgg.pages.dev</a></div>
+    <div style="font-size:0.78rem;color:var(--accent-light);line-height:1.5">Acesse também pelo navegador em <a href="https://saulomgg.github.io/remed-pwa" target="_blank" style="color:var(--accent-light);font-weight:700;text-decoration:underline">saulomgg.github.io/remed-pwa</a></div>
   </div>
   <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px">
     <button onclick="doInstall()" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:13px;padding:14px;font-size:.88rem;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(16,185,129,.35)">⬇️ Instalar no aparelho</button>
@@ -204,30 +204,6 @@
      MODAIS
 ══════════════════════════════════════════ -->
 
-<!-- ONBOARDING (primeiro acesso) -->
-<div id="modalOnboarding">
-  <div class="onboarding-box" style="position:relative;">
-    <button onclick="document.getElementById('modalOnboarding').classList.remove('open'); document.body.style.overflow = '';" style="position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:var(--text-muted);cursor:pointer;font-size:1rem;padding:6px 10px;border-radius:10px;z-index:10;">✕</button>
-    <div style="text-align:center;margin-bottom:24px;">
-      <div style="font-size:3rem;margin-bottom:10px;">💊</div>
-      <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;margin-bottom:8px;">Bem-vindo ao ReMed</h2>
-      <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">Controle seus medicamentos de forma simples e privada. Cadastre-se para começar — é grátis.</p>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div class="fgrp" style="margin-bottom:0"><input type="text"  id="obNome"  placeholder="Seu nome"            style="background:var(--bg2);border:1.5px solid var(--border-strong);border-radius:12px;padding:14px 16px;color:var(--text);font-family:var(--font-body);font-size:0.95rem;width:100%;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-strong)'"></div>
-      <div class="fgrp" style="margin-bottom:0"><input type="email" id="obEmail" placeholder="Seu e-mail"          style="background:var(--bg2);border:1.5px solid var(--border-strong);border-radius:12px;padding:14px 16px;color:var(--text);font-family:var(--font-body);font-size:0.95rem;width:100%;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-strong)'"></div>
-      <div class="fgrp" style="margin-bottom:0"><input type="tel"   id="obTel"   placeholder="WhatsApp (com DDD)"  style="background:var(--bg2);border:1.5px solid var(--border-strong);border-radius:12px;padding:14px 16px;color:var(--text);font-family:var(--font-body);font-size:0.95rem;width:100%;outline:none;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-strong)'"></div>
-      <div id="obErro" style="color:var(--danger);font-size:0.82rem;text-align:center;display:none;"></div>
-      <button id="obBtn" class="big-btn big-btn-primary" onclick="submitOnboarding(event)">✅ Entrar Grátis no ReMed</button>
-    </div>
-    <div style="margin-top:16px;padding:12px 14px;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-radius:12px;">
-      <div style="font-size:0.78rem;color:#fbbf24;font-weight:700;margin-bottom:3px;">⚠️ Dica importante: Faça o Backup!</div>
-      <div style="font-size:0.74rem;color:rgba(251,191,36,0.7);line-height:1.5">O backup é sua confirmação de conta. Com ele você recupera tudo em qualquer aparelho.</div>
-    </div>
-    <p style="text-align:center;font-size:0.72rem;color:var(--text-dim);margin-top:12px;">🔒 Grátis. Sem spam. Seus dados ficam só no seu aparelho.</p>
-  </div>
-</div>
-
 <!-- SETTINGS -->
 <div class="modal-overlay" id="modalSettings" onclick="handleOverlayClick(event,'modalSettings')">
   <div class="modal-sheet">
@@ -236,7 +212,6 @@
       <h2>⚙️ Ajustes</h2>
       <button class="modal-close" onclick="closeModal('modalSettings')">✕</button>
     </div>
-    <div id="contaDados"></div>
     <div class="set-item" onclick="openModal('modalPersonalizar');closeModal('modalSettings')">
       <div class="set-icon">🎨</div>
       <div class="set-info"><h4>Personalizar App</h4><p>Cores e tema claro/escuro</p></div>
@@ -275,71 +250,17 @@
         <p>Alterne entre tema claro e escuro</p>
       </div>
     </div>
-    <button class="big-btn big-btn-primary" onclick="closeModal('modalPersonalizar')" style="margin-top:20px">Concluído ✓</button>
-  </div>
-</div>
-
-<!-- BACKUP -->
-<div class="modal-overlay" id="modalBackup" onclick="handleOverlayClick(event,'modalBackup')">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-head">
-      <h2>📦 Backup</h2>
-      <button class="modal-close" onclick="closeModal('modalBackup')">✕</button>
-    </div>
-    <div style="margin-bottom:18px;padding:14px 15px;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.22);border-radius:14px;">
-      <div style="font-weight:800;font-size:0.85rem;color:#fbbf24;margin-bottom:6px;">⚠️ Faça sempre o Backup!</div>
-      <div style="font-size:0.8rem;color:rgba(251,191,36,0.8);line-height:1.6;">O backup é sua <strong style="color:#fbbf24">confirmação de conta</strong>. Ao restaurar o arquivo, seus dados e conta voltam completamente — sem senha, sem suporte.</div>
-    </div>
-    <button class="big-btn big-btn-primary" onclick="exportarDados()">⬇️ Exportar Backup (JSON)</button>
-    <div class="divider"></div>
-    <div class="fgrp" style="margin-top:8px;">
-      <label>Restaurar / Recuperar conta</label>
-      <input type="file" id="importFile" accept=".json" style="padding:12px;">
-    </div>
-    <button class="big-btn big-btn-danger" onclick="limparTudo()">🗑️ Limpar Todos os Dados</button>
-  </div>
-</div>
-
-<!-- SOBRE -->
-<div class="modal-overlay" id="modalSobre" onclick="handleOverlayClick(event,'modalSobre')">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-head">
-      <h2>💊 Sobre o ReMed</h2>
-      <button class="modal-close" onclick="closeModal('modalSobre')">✕</button>
-    </div>
-    <div style="text-align:center;padding:10px 0 22px;">
-      <img src="assets/remed-logo.png" alt="ReMed" style="width:72px;height:72px;border-radius:18px;object-fit:cover;margin-bottom:12px;box-shadow:0 8px 24px var(--accent-glow);">
-      <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:800;">ReMed</div>
-      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">versão 1.0 · gratuito · open source</div>
-    </div>
-    <div class="divider"></div>
-    <div style="font-size:0.85rem;color:var(--text-muted);line-height:1.7;margin:16px 0;">
-      Controle inteligente dos seus medicamentos. Acompanhe estoque, horários, lembretes e peça reposição direto para a farmácia via WhatsApp — tudo offline e privado.
-    </div>
-    <div class="divider"></div>
-    <div style="margin:16px 0;">
-      <div style="font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:12px;">👨‍💻 Desenvolvedor</div>
-      <div style="display:flex;align-items:center;gap:14px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px;">
-        <div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-light));display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">👤</div>
-        <div>
-          <div style="font-weight:700;font-size:0.95rem;">Saulomgg</div>
-          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">Desenvolvedor Full Stack</div>
-        </div>
-        <a href="https://github.com/saulomgg" target="_blank" style="margin-left:auto;background:var(--accent-ultra);color:var(--accent-light);border:1px solid rgba(16,185,129,0.25);border-radius:10px;padding:8px 12px;font-size:0.78rem;font-weight:600;text-decoration:none;flex-shrink:0;">GitHub ↗</a>
-      </div>
-    </div>
     <div class="divider"></div>
     <div style="margin:16px 0 20px;">
-      <div style="font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:12px;">💛 Apoie &amp; Acompanhe</div>
-      <div style="font-size:0.84rem;color:var(--text-muted);line-height:1.7;margin-bottom:16px;">O ReMed é gratuito. Veja todos os projetos do desenvolvedor e apoie em <strong style="color:var(--accent-light)">saulomgg.pages.dev</strong></div>
+      <div style="font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:12px;">🌐 Acesse o App</div>
+      <div style="font-size:0.84rem;color:var(--text-muted);line-height:1.7;margin-bottom:16px;">Compartilhe ou acesse o ReMed em qualquer dispositivo pelo link abaixo.</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <a href="https://saulomgg.pages.dev" target="_blank" class="big-btn big-btn-primary" style="text-decoration:none;text-align:center;margin-top:0;">🌐 Ver Projetos</a>
+        <a href="https://saulomgg.github.io/remed-pwa" target="_blank" class="big-btn big-btn-primary" style="text-decoration:none;text-align:center;margin-top:0;">🌐 Abrir ReMed</a>
         <a href="https://github.com/saulomgg" target="_blank" class="big-btn big-btn-ghost"  style="text-decoration:none;text-align:center;margin-top:0;">⭐ GitHub</a>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- NOVO REMÉDIO -->
@@ -436,7 +357,10 @@
       <button class="step-tab"        id="stepTab3" onclick="_pedidoStep=3;renderPedidoStep()">3 · Revisar</button>
     </div>
 
-    <div id="pedidoStep1" style="display:block"><div id="pedidoMeds"></div></div>
+    <div id="pedidoStep1" style="display:block">
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:10px;">Selecione os remédios para incluir na mensagem <span style="color:var(--accent-light)">(opcional)</span></p>
+      <div id="pedidoMeds"></div>
+    </div>
     <div id="pedidoStep2" style="display:none"> <div id="pedidoFarmacias"></div></div>
     <div id="pedidoStep3" style="display:none"> 
       <div class="fgrp" style="margin-top:10px;">
