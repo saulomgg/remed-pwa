@@ -25,7 +25,7 @@
 ## 📸 Preview
 
 <div align="center">
-  <!-- Adicione aqui um screenshot do app -->
+  <img width="392" height="845" alt="saulomgg" src="https://github.com/user-attachments/assets/392ad283-66bb-4d0f-91ff-1581eae5a449" />
 </div>
 
 ---
