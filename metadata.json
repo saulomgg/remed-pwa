@@ -1,0 +1,6 @@
+{
+  "name": "ReMed PWA - Gestão Inteligente de Remédios",
+  "description": "PWA moderno e fluido para gestão de medicamentos, alertas de dose com integração ao Google Agenda e pedidos rápidos via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
