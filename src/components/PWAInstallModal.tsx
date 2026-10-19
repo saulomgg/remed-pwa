@@ -45,7 +45,7 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({ isOpen, onClos
         <div className="flex items-center gap-4">
           <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-brand to-cyan-500 shadow-md p-1">
             <img
-              src="/pwa-192x192.png"
+              src={`${import.meta.env.BASE_URL}pwa-192x192.png`}
               alt="Logo ReMed"
               className="h-full w-full object-contain rounded-xl"
               onError={(e) => {

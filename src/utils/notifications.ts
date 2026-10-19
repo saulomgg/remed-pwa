@@ -1,5 +1,7 @@
 import { Medication, DoseLog } from '../types';
 
+const pwaIcon = `${import.meta.env.BASE_URL}pwa-192x192.png`;
+
 export interface ExtendedNotificationOptions extends NotificationOptions {
   renotify?: boolean;
 }
@@ -48,8 +50,8 @@ class NotificationService {
     if (Notification.permission !== 'granted') return false;
 
     const defaultOptions: NotificationOptions = {
-      icon: '/pwa-192x192.png',
-      badge: '/pwa-192x192.png',
+      icon: pwaIcon,
+      badge: pwaIcon,
       requireInteraction: false,
       ...options,
     };

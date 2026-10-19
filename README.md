@@ -1,136 +1,85 @@
-<div align="center">
+# ReMed PWA
 
-# 💊 ReMed PWA
+PWA responsivo para organizar medicamentos, horários e estoque em um só lugar. O ReMed foi pensado para uso rápido no celular, com dados salvos localmente e recursos que ajudam no acompanhamento diário do tratamento.
 
-**Gestão inteligente de medicamentos, estoque e pedidos via WhatsApp. PWA Offline-First focado em privacidade.**
+## O que o app faz
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![PWA](https://img.shields.io/badge/PWA-Offline--First-purple?logo=googlechrome)](https://saulomgg.github.io/remed-pwa)
-[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-blue?logo=github)](https://saulomgg.github.io/remed-pwa)
-[![WhatsApp](https://img.shields.io/badge/Pedidos-WhatsApp-25D366?logo=whatsapp&logoColor=white)]()
-[![Status](https://img.shields.io/badge/Status-Active-brightgreen)]()
+- Cadastro, edição e exclusão de medicamentos.
+- Organização de horários e doses do dia.
+- Registro de doses tomadas.
+- Controle de estoque e alerta de reposição.
+- Notificações de lembrete quando suportadas pelo navegador.
+- Integração opcional com Google Agenda.
+- Montagem de pedidos para farmácias via WhatsApp.
+- Lista de farmácias e anotações.
+- Tema claro/escuro e instalação como aplicativo.
+- Modo demonstração com dados de exemplo.
+- Armazenamento local: os dados ficam no navegador do usuário.
 
-<br/>
+> O ReMed é uma ferramenta de organização. Ele não substitui orientação médica, receita ou acompanhamento profissional.
 
-### 🌐 **[▶ Acesse o App Agora](https://saulomgg.github.io/remed-pwa)**
+## Correção da tela branca no GitHub Pages
 
-<br/>
+A tela branca acontecia porque o GitHub Pages estava publicando os arquivos-fonte diretamente. O `index.html` tentava carregar `/src/main.tsx`, mas o navegador não executa TSX bruto. Além disso, os caminhos iniciados por `/` apontavam para a raiz do domínio, e não para `/remed-pwa/`.
 
-> Seus medicamentos organizados, seu estoque sob controle, seus pedidos no WhatsApp — tudo **100% privado e offline**.
+Esta versão corrige os dois pontos: `vite.config.ts` usa `base: '/remed-pwa/'`, o projeto é publicado a partir de `dist/`, e manifesto, service worker, ícones e notificações usam o subdiretório correto.
 
-</div>
+## Requisitos
 
----
+- Node.js 20.19+ ou 22.12+.
+- npm 10+.
 
-## 📸 Preview
-
-<div align="center">
-  <img width="392" height="845" alt="saulomgg" src="https://github.com/user-attachments/assets/392ad283-66bb-4d0f-91ff-1581eae5a449" />
-</div>
-
----
-
-## ✨ Funcionalidades
-
-| Funcionalidade | Descrição |
-|---|---|
-| 💊 **Controle de Medicamentos** | Cadastre remédios com nome, dosagem, fabricante e horário |
-| 📦 **Acompanhamento de Estoque** | Alertas automáticos: crítico 🔴, atenção 🟡, ok 🟢 |
-| ⏰ **Lembretes de Dosagem** | Veja os horários do dia e receba notificações |
-| 🔔 **Notificações** | Alertas de estoque baixo e hora do remédio no celular |
-| 🏪 **Gerenciamento de Farmácias** | Lista de farmácias com contato via WhatsApp |
-| 📲 **Pedidos via WhatsApp** | Mensagem pré-formatada com seus remédios, editável antes de enviar |
-| 👤 **Perfil do Usuário** | Salve seu nome, endereço e telefone — aparece na mensagem do pedido |
-| 🔒 **Privacidade Total** | Dados armazenados apenas no seu dispositivo (LocalStorage) |
-| 💾 **Backup e Restauração** | Exporte e importe tudo via arquivo JSON |
-| 🌙 **Tema Claro/Escuro** | Personalização de cores e aparência |
-| ✈️ **Offline First** | Funciona completamente sem internet |
-| 📲 **Instalável** | Comporta-se como app nativo no Android e iOS |
-
----
-
-## 🛠️ Tecnologias
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![PWA](https://img.shields.io/badge/PWA-Service%20Workers-5A0FC8?style=flat&logo=googlechrome&logoColor=white)
-
-- **HTML5 & CSS3** — Estrutura semântica com Design Tokens e componentes modulares
-- **JavaScript ES6+** — Módulos independentes: `storage.js`, `ui.js`, `auth.js`, `app.js`
-- **Service Workers** — Cache completo para funcionamento offline
-- **Web App Manifest** — Instalação como app nativo
-- **LocalStorage API** — Persistência 100% local e privada
-- **Notifications API** — Alertas nativos de estoque e horário de remédios
-
----
-
-## 📁 Estrutura do Projeto
-
-```
-remed-pwa/
-├── assets/
-│   ├── remed-logo.png   # Logo 1024×1024
-│   ├── icon-192.png     # Ícone PWA pequeno
-│   └── icon-512.png     # Ícone PWA grande
-├── css/
-│   ├── tokens.css       # Variáveis globais (cores, espaçamentos)
-│   └── components.css   # Estilos dos componentes
-├── js/
-│   ├── storage.js       # Gerenciamento de dados no LocalStorage
-│   ├── ui.js            # Interface: modais, tema, PWA, notificações
-│   ├── auth.js          # Perfil do usuário
-│   └── app.js           # Lógica principal: medicamentos, farmácias, pedidos
-├── index.html           # Entrada principal
-├── manifest.json        # Configuração PWA
-└── sw.js                # Service Worker (cache offline)
-```
-
----
-
-## 🔒 Privacidade
-
-- ✅ Todos os dados ficam **exclusivamente no seu dispositivo**
-- ✅ Sem servidores, sem cadastro obrigatório, sem rastreamento
-- ✅ Funciona 100% offline após o primeiro acesso
-- ✅ Backup exportável a qualquer momento em formato JSON
-
----
-
-## 🚀 Como Usar
-
-### Opção 1 — Acesso direto (recomendado)
-
-Acesse **[saulomgg.github.io/remed-pwa](https://saulomgg.github.io/remed-pwa)** e instale como app clicando em "Adicionar à tela inicial".
-
-### Opção 2 — Rodar localmente
+## Executar localmente
 
 ```bash
-git clone https://github.com/saulomgg/remed-pwa.git
-cd remed-pwa
-npx serve .
+npm install
+npm run dev
 ```
 
-> ⚠️ Para PWA funcionar (instalação + notificações), o projeto precisa ser servido via **HTTPS**.
+Abra o endereço exibido pelo Vite, normalmente `http://localhost:3000`.
 
----
+## Validar antes de publicar
 
-## 🤝 Contribuindo
+```bash
+npm run lint
+npm run build
+npm run preview
+```
 
-Contribuições são bem-vindas! Abra uma [issue](https://github.com/saulomgg/remed-pwa/issues) ou envie um pull request.
+A build final fica em `dist/`.
 
----
+## Publicar manualmente no GitHub Pages
 
-## 📄 Licença
+1. Execute `npm install` e `npm run build`.
+2. Publique o **conteúdo interno** da pasta `dist/` no branch configurado para o GitHub Pages, normalmente `gh-pages`.
+3. Em **Settings > Pages**, selecione **Deploy from a branch**, escolha o branch e a pasta `/ (root)`.
+4. Abra `https://SEU-USUARIO.github.io/remed-pwa/`.
 
-Distribuído sob a licença [MIT](LICENSE).
+Não publique a raiz do código-fonte diretamente como site. O navegador deve receber o conteúdo gerado dentro de `dist/`.
 
----
+## Publicar automaticamente por GitHub Actions
 
-<div align="center">
+O arquivo `.github/workflows/deploy-pages.yml` instala dependências, executa `npm run build` e publica `dist/` no GitHub Pages. No GitHub, em **Settings > Pages > Build and deployment > Source**, escolha **GitHub Actions**.
 
-Desenvolvido por [**Saulomgg**](https://github.com/saulomgg)
+O workflow usa o nome de repositório `remed-pwa`. Se o repositório tiver outro nome, altere `base` no `vite.config.ts` para `/<nome-do-repositorio>/`.
 
-⭐ Se o projeto te ajudou, deixe uma estrela no repositório!
+## Estrutura principal
 
-</div>
+```text
+src/                 Código React, componentes, hooks, utilitários e tipos
+public/              Ícones e arquivos públicos
+index.html           Entrada HTML
+vite.config.ts       Build, base do GitHub Pages e manifesto PWA
+```
+
+## Configuração opcional
+
+Copie `.env.example` para `.env.local` apenas se for usar alguma integração que exija configuração. Nunca publique chaves secretas no GitHub.
+
+## Privacidade e dados
+
+O armazenamento principal é local, no navegador do dispositivo. Limpar os dados do site, trocar de navegador ou usar outro aparelho pode remover ou deixar indisponíveis os dados salvos localmente.
+
+## Licença
+
+Defina a licença do projeto antes de torná-lo público. Caso ainda não tenha escolhido uma, mantenha o repositório sem declaração de licença explícita.
