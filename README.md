@@ -1,6 +1,6 @@
 <div align="center">
 
-# REMÉD
+# remed
 
 ### `Gratuito` · `Instalável` · `Medicamentos`
 
